@@ -1,0 +1,7 @@
+1. 安裝(windows10)  
+  - 注意python版本!! Python 3.10 to 3.13  
+  - 注意依賴項!!  
+  * CUDA_12.0 to Latest  
+  * onnxruntime-gpu ver-1.24.1 to Latest  
+  * pytorch ver-126 to Latest
+  * 
