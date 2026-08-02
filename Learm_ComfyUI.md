@@ -13,7 +13,7 @@
 - TensorRT =>有安裝上面那個自然會需要這個，可以加快模型的運轉效率，不過其實不是標配要或不要視個人需求  
   
 ### 開始安裝-全新的開始 ###
-*會加入過程一些需要注意的小狀況*  
+*加入過程一些需要注意的小狀況*  
 - 首先官方 [ComfyUI_github](https://github.com/Comfy-Org/ComfyUI) 有給Windows Portable Package的下載包可以直接下載下來放到指定的資料夾即可後續使用  
 但是想要安穩的吃到電腦上的硬體資源建議用手動作法  
 - 建議使用comfy-cli，安裝後可以直接使用命令下載主體檔案包含ComfyUI-Manager等所有相關的套件  
@@ -34,16 +34,26 @@
 ### 理解運作邏輯以及實際操作 ###  
 *首先來個網路上找的流程圖*【如有版權問題請留信告知我把它刪除】  
 <img width="768" height="381" alt="image" src="https://github.com/user-attachments/assets/ea4bf2e0-d737-4fcc-813f-2852b39b9ade" />  
-- 我對於流程圖的理解
-  Pixel Space(像素圖空間)此處原始圖片需要經由VAE Encode(變分編碼器)編碼成向量數並壓縮放入Latent Space(潛在空間)  
-  然後經由Diffusion Process(擴散噪點)將在潛在空間的向量數加入噪點使其失去原始樣態  
-  以機器學習角度來看比較像是故意加入額外的向量數把權重打亂...吧?  
-  右側的Conditioning(訓練條件)是要混合的材料，如語意地圖（Semantic Map）、文字（Text）、結構表徵（Representations）或圖像（Images)，
-  材料經由文字編碼器(text_encoders)、Embedding(語意)、LoRA(結構表徵)等等轉換成向量數【T0的部分】  
-  之後將外部輸入的向量數混入本來在潛在空間中的原始圖向量數並使用Denoising U-Net(網格去噪)依步數設定疊代去噪過程  
-  疊代過程中模型會慢慢的將外部的物件與原始圖的物件做融合使其盡量自然平滑，最後再經由VAE Decode將向量數據反向解碼成圖  
-
-
-
+我對於流程圖的理解  
+Pixel Space(像素圖空間)此處原始圖片需要經由VAE Encode(變分編碼器)編碼成向量數並壓縮放入Latent Space(潛在空間)  
+然後經由Diffusion Process(擴散噪點)將在潛在空間的向量數加入噪點使其失去原始樣態  
+以機器學習角度來看比較像是故意加入額外的向量數把權重打亂...吧?  
+右側的Conditioning(訓練條件)是要混合的材料，如語意地圖（Semantic Map）、文字（Text）、結構表徵（Representations）或圖像（Images)，
+材料經由文字編碼器(text_encoders)、Embedding(語意)、LoRA(結構表徵)等等轉換成向量數【T0的部分】  
+之後將外部輸入的向量數混入本來在潛在空間中的原始圖向量數並使用Denoising U-Net(網格去噪)依步數設定疊代去噪過程  
+疊代過程中模型會慢慢的將外部的物件與原始圖的物件做融合使其盡量自然，最後再經由VAE Decode將向量數據反向解碼成圖
+  
+*理解名詞*  
+- 使用工具的第一步就是先了解UI與UX，試著去操作介面上的功能以及用途  
+1.   
+  
+*理解節點*  
+- 將各節點的主要功能都摸過一次，實際測試文生圖流程以及官方所提到的基礎工作流每個節點各自會對最終成品造成什麼影響  
+1. Checkpoint[load checkpoint]=>  
+2. CLIP[CLIP Text Encode]=>  
+3. Latent[Empty Latent Image]=>   
+4. KSampler=>  
+5. VAE[VAE Decode]=>
+6. Save Image=>
 
   
